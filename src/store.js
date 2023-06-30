@@ -21,8 +21,8 @@ export const useStore = create((set) => ({
   items: [
     {
       description: "",
-      rate: 5,
-      quantity: 2,
+      rate: 0,
+      quantity: 0,
       id: nanoid(),
       amount: function () {
         return calculateAmount(this.rate, this.quantity);
