@@ -11,7 +11,7 @@ function SharedInput({
 }) {
   const setValue = useStore((state) => state.setValue);
 
-  const handleChangeTest = (e) => {
+  const handleChangeDefault = (e) => {
     setValue(e.target.value, name);
   };
 
@@ -24,7 +24,7 @@ function SharedInput({
         placeholder={placeholderText}
         value={value}
         id={name}
-        onChange={handleChange || handleChangeTest}
+        onChange={handleChange || handleChangeDefault}
         name={name}
       />
     </div>

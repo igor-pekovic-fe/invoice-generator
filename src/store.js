@@ -12,8 +12,10 @@ export const useStore = create((set) => ({
   terms: "",
   currency: "$",
   subTotal: 0,
-  discount: 0,
-  tax: 0,
+  discountType: "percentage",
+  discountValue: 0,
+  taxType: "percentage",
+  taxValue: 0,
   shipping: 0,
   total: 0,
   items: [
@@ -63,12 +65,19 @@ useStore.subscribe(
 
     let adjustedTotal = totalAmount;
 
-    if (store.discount) {
-      adjustedTotal -= totalAmount * (store.discount / 100);
+    if (store.discountType === "percentage") {
+      const discountAmount = totalAmount * (store.discountValue / 100);
+      adjustedTotal -= discountAmount;
+    } else if (store.discountType === "fixed") {
+      adjustedTotal -= store.discountValue;
     }
-    if (store.tax) {
-      adjustedTotal -= totalAmount * (store.tax / 100);
+
+    if (store.taxType === "percentage") {
+      adjustedTotal -= totalAmount * (store.taxValue / 100);
+    } else if (store.taxType === "fixed") {
+      adjustedTotal -= store.taxValue;
     }
+
     if (parseFloat(store.shipping)) {
       adjustedTotal += parseFloat(store.shipping);
     }
