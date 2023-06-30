@@ -38,18 +38,33 @@ function Total() {
     },
   });
 
+  const [isDiscountAdded, setIsDiscountAdded] = useState(false);
+  const [isTaxAdded, setIsTaxAdded] = useState(false);
+
   useEffect(() => {
     const { discount, tax } = values;
 
-    setValue(
-      discount.type === "percentage" ? "percentage" : "fixed",
-      "discountType"
-    );
-    setValue(discount.type === "percentage" ? discount.value : "discountValue");
+    if (isDiscountAdded) {
+      setValue(
+        discount.type === "percentage" ? "percentage" : "fixed",
+        "discountType"
+      );
+      setValue(
+        discount.type === "percentage" ? discount.value : "discountValue"
+      );
+    } else {
+      setValue("fixed", "discountType");
+      setValue(0, "discountValue");
+    }
 
-    setValue(tax.type === "percentage" ? "percentage" : "fixed", "taxType");
-    setValue(tax.type === "percentage" ? tax.value : "taxValue");
-  }, [values]);
+    if (isTaxAdded) {
+      setValue(tax.type === "percentage" ? "percentage" : "fixed", "taxType");
+      setValue(tax.type === "percentage" ? tax.value : "taxValue");
+    } else {
+      setValue("fixed", "taxType");
+      setValue(0, "taxValue");
+    }
+  }, [values, isDiscountAdded, isTaxAdded]);
 
   const handleToggle = (stateType) => {
     setValues((prevState) => ({
