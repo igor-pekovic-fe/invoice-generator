@@ -56,30 +56,34 @@ export const useStore = create((set) => ({
 }));
 
 useStore.subscribe(
-  (store) => {
-    const totalAmount = store.items.reduce(
-      (acc, item) => acc + calculateAmount(item.rate, item.quantity),
+  (state) => {
+    const totalAmount = state.items.reduce(
+      (acc, item) => acc + item.rate * item.quantity,
       0
     );
-    store.subTotal = totalAmount;
 
     let adjustedTotal = totalAmount;
 
-    if (store.discountType === "percentage") {
-      const discountAmount = totalAmount * (store.discountValue / 100);
+    if (state.discountType === "percentage") {
+      const discountAmount = totalAmount * (state.discountValue / 100);
       adjustedTotal -= discountAmount;
-    } else {
-      adjustedTotal -= store.discountType === "fixed" ? store.discountValue : 0;
+    } else if (state.discountType === "fixed") {
+      adjustedTotal -= state.discountValue;
     }
 
-    if (store.taxType === "percentage") {
-      const taxAmount = totalAmount * (store.taxValue / 100);
+    if (state.taxType === "percentage") {
+      const taxAmount = totalAmount * (state.taxValue / 100);
       adjustedTotal -= taxAmount;
-    } else {
-      adjustedTotal -= store.taxType === "fixed" ? store.taxValue : 0;
+    } else if (state.taxType === "fixed") {
+      adjustedTotal -= state.taxValue;
     }
 
-    adjustedTotal += parseFloat(store.shipping) || 0;
+    adjustedTotal += parseFloat(state.shipping) || 0;
+
+    set({
+      subTotal: totalAmount,
+      total: adjustedTotal,
+    });
   },
   (state) => state.items
 );
