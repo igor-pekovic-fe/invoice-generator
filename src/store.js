@@ -68,21 +68,18 @@ useStore.subscribe(
     if (store.discountType === "percentage") {
       const discountAmount = totalAmount * (store.discountValue / 100);
       adjustedTotal -= discountAmount;
-    } else if (store.discountType === "fixed") {
-      adjustedTotal -= store.discountValue;
+    } else {
+      adjustedTotal -= store.discountType === "fixed" ? store.discountValue : 0;
     }
 
     if (store.taxType === "percentage") {
-      adjustedTotal -= totalAmount * (store.taxValue / 100);
-    } else if (store.taxType === "fixed") {
-      adjustedTotal -= store.taxValue;
+      const taxAmount = totalAmount * (store.taxValue / 100);
+      adjustedTotal -= taxAmount;
+    } else {
+      adjustedTotal -= store.taxType === "fixed" ? store.taxValue : 0;
     }
 
-    if (parseFloat(store.shipping)) {
-      adjustedTotal += parseFloat(store.shipping);
-    }
-
-    store.total = adjustedTotal;
+    adjustedTotal += parseFloat(store.shipping) || 0;
   },
   (state) => state.items
 );
