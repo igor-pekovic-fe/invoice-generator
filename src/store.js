@@ -64,26 +64,25 @@ useStore.subscribe(
 
     let adjustedTotal = totalAmount;
 
-    if (state.discountType === "percentage") {
-      const discountAmount = totalAmount * (state.discountValue / 100);
-      adjustedTotal -= discountAmount;
-    } else if (state.discountType === "fixed") {
-      adjustedTotal -= state.discountValue;
-    }
+    const discountAmount =
+      state.discountType === "percentage"
+        ? totalAmount * (state.discountValue / 100)
+        : state.discountType === "fixed"
+        ? state.discountValue
+        : 0;
 
-    if (state.taxType === "percentage") {
-      const taxAmount = totalAmount * (state.taxValue / 100);
-      adjustedTotal -= taxAmount;
-    } else if (state.taxType === "fixed") {
-      adjustedTotal -= state.taxValue;
-    }
+    const taxAmount =
+      state.taxType === "percentage"
+        ? totalAmount * (state.taxValue / 100)
+        : state.taxType === "fixed"
+        ? state.taxValue
+        : 0;
 
+    adjustedTotal -= discountAmount;
+    adjustedTotal -= taxAmount;
     adjustedTotal += parseFloat(state.shipping) || 0;
 
-    set({
-      subTotal: totalAmount,
-      total: adjustedTotal,
-    });
+    state.total = adjustedTotal;
   },
   (state) => state.items
 );

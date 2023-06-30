@@ -44,26 +44,35 @@ function Total() {
   useEffect(() => {
     const { discount, tax } = values;
 
-    if (isDiscountAdded) {
-      setValue(
-        discount.type === "percentage" ? "percentage" : "fixed",
-        "discountType"
-      );
-      setValue(
-        discount.type === "percentage" ? discount.value : "discountValue"
-      );
-    } else {
-      setValue("fixed", "discountType");
-      setValue(0, "discountValue");
-    }
+    setValue(
+      isDiscountAdded
+        ? discount.type === "percentage"
+          ? "percentage"
+          : "fixed"
+        : "fixed",
+      "discountType"
+    );
+    setValue(
+      isDiscountAdded
+        ? discount.type === "percentage"
+          ? discount.value
+          : discount.value
+        : 0,
+      "discountValue"
+    );
 
-    if (isTaxAdded) {
-      setValue(tax.type === "percentage" ? "percentage" : "fixed", "taxType");
-      setValue(tax.type === "percentage" ? tax.value : "taxValue");
-    } else {
-      setValue("fixed", "taxType");
-      setValue(0, "taxValue");
-    }
+    setValue(
+      isTaxAdded
+        ? tax.type === "percentage"
+          ? "percentage"
+          : "fixed"
+        : "fixed",
+      "taxType"
+    );
+    setValue(
+      isTaxAdded ? (tax.type === "percentage" ? tax.value : tax.value) : 0,
+      "taxValue"
+    );
   }, [values, isDiscountAdded, isTaxAdded]);
 
   const handleToggle = (stateType) => {
@@ -74,6 +83,12 @@ function Total() {
         isDisplaying: !prevState[stateType].isDisplaying,
       },
     }));
+
+    if (stateType === "discount") {
+      setIsDiscountAdded((prevState) => !prevState);
+    } else if (stateType === "tax") {
+      setIsTaxAdded((prevState) => !prevState);
+    }
   };
 
   const handleChange = (e, stateType) => {
@@ -82,7 +97,7 @@ function Total() {
       ...prevState,
       [stateType]: {
         ...prevState[stateType],
-        value: newValue,
+        value: parseFloat(newValue), // Parse the value to a float
       },
     }));
   };
