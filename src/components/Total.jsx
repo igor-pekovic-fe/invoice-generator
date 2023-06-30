@@ -41,21 +41,14 @@ function Total() {
   useEffect(() => {
     const { discount, tax } = values;
 
-    if (discount.type === "percentage") {
-      setValue("percentage", "discountType");
-      setValue(discount.value, "discountValue");
-    } else if (discount.type === "fixed") {
-      setValue("fixed", "discountType");
-      setValue(discount.value, "discountValue");
-    }
+    setValue(
+      discount.type === "percentage" ? "percentage" : "fixed",
+      "discountType"
+    );
+    setValue(discount.type === "percentage" ? discount.value : "discountValue");
 
-    if (tax.type === "percentage") {
-      setValue("percentage", "taxType");
-      setValue(tax.value, "taxValue");
-    } else if (tax.type === "fixed") {
-      setValue("fixed", "taxType");
-      setValue(tax.value, "taxValue");
-    }
+    setValue(tax.type === "percentage" ? "percentage" : "fixed", "taxType");
+    setValue(tax.type === "percentage" ? tax.value : "taxValue");
   }, [values]);
 
   const handleToggle = (stateType) => {
