@@ -6,6 +6,7 @@ import SharedTextArea from "./components/SharedTextArea";
 import Item from "./components/Item";
 import Currency from "./components/Currency";
 import Total from "./components/Total";
+import Date from "./components/Date";
 
 function App() {
   const {
@@ -13,30 +14,29 @@ function App() {
     from,
     billTo,
     shipTo,
+    date,
+    dueDate,
     notes,
     terms,
     items,
     addItem,
     deleteItem,
-    setValue,
   } = useStore(
     (state) => ({
       number: state.number,
       from: state.from,
       billTo: state.billTo,
       shipTo: state.shipTo,
+      date: state.date,
+      dueDate: state.dueDate,
       notes: state.notes,
       terms: state.terms,
       items: state.items,
       addItem: state.addItem,
       deleteItem: state.deleteItem,
-      setValue: state.setValue,
     }),
     shallow
   );
-
-  const store = useStore();
-  console.log(store.total);
 
   const handleGenerateItem = () => {
     const newItem = {
@@ -47,6 +47,10 @@ function App() {
     };
     addItem(newItem);
   };
+
+  const store = useStore();
+
+  console.log(store.date, store.dueDate);
 
   const handleDeleteItem = (itemId) => {
     deleteItem(itemId);
@@ -94,6 +98,8 @@ function App() {
         ))}
       </div>
       <button onClick={handleGenerateItem}>+ Line Item</button>
+      <Date labelText="Date" name="date" />
+      <Date labelText="Due Date" name="dueDate" />
       <SharedTextArea
         value={notes}
         name="notes"

@@ -25,8 +25,6 @@ function Total() {
     shallow
   );
 
-  console.log(typeof subTotal);
-
   const [values, setValues] = useState({
     discount: {
       isDisplaying: false,
