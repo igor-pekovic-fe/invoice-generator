@@ -2,8 +2,10 @@ import { create } from "zustand";
 import { nanoid } from "nanoid";
 
 const calculateAmount = (rate, quantity) => rate * quantity;
+const calculateTotal = (arr) =>
+  arr.items.reduce((acc, item) => acc + item.rate * item.quantity, 0);
 
-export const useStore = create((set) => ({
+export const useStore = create((set, get) => ({
   number: 1,
   from: "",
   billTo: "",
@@ -11,7 +13,10 @@ export const useStore = create((set) => ({
   notes: "",
   terms: "",
   currency: "$",
-  subTotal: 0,
+  subTotal: function () {
+    const state = get();
+    return calculateTotal(state);
+  },
   discountType: "percentage",
   discountValue: 0,
   taxType: "percentage",
@@ -57,10 +62,7 @@ export const useStore = create((set) => ({
 
 useStore.subscribe(
   (state) => {
-    const totalAmount = state.items.reduce(
-      (acc, item) => acc + item.rate * item.quantity,
-      0
-    );
+    const totalAmount = calculateTotal(state);
 
     let adjustedTotal = totalAmount;
 

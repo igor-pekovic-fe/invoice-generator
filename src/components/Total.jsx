@@ -15,7 +15,7 @@ function Total() {
   } = useStore(
     (state) => ({
       currency: state.currency,
-      subTotal: state.subTotal,
+      subTotal: state.subTotal(),
       discountValue: state.discountValue,
       taxValue: state.taxValue,
       shipping: state.shipping,
@@ -24,6 +24,8 @@ function Total() {
     }),
     shallow
   );
+
+  console.log(typeof subTotal);
 
   const [values, setValues] = useState({
     discount: {
