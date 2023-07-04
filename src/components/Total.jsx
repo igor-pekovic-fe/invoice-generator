@@ -40,6 +40,11 @@ function Total() {
       type: "percentage",
       value: 0,
     },
+    shipping: {
+      isDisplaying: false,
+      type: "fixed", // Set the type to "fixed" for shipping
+      value: 0,
+    },
   });
 
   const [isDiscountAdded, setIsDiscountAdded] = useState(false);
@@ -107,6 +112,9 @@ function Total() {
   };
 
   const changeType = (stateType) => {
+    if (stateType === "shipping") {
+      return;
+    }
     setValues((prevState) => ({
       ...prevState,
       [stateType]: {
@@ -118,12 +126,13 @@ function Total() {
   };
 
   return (
-    <div>
-      <div>
+    <div className="flex flex-col py-4">
+      <div className="flex gap-2">
         <label>Subtotal</label>
-        {subTotal}
+        {currency}
+        {subTotal.toFixed(2)}
       </div>
-      <div>
+      <div className="flex items-center gap-2">
         {values.discount.isDisplaying && (
           <SharedInput
             labelText="Discount"
@@ -133,14 +142,17 @@ function Total() {
             handleChange={(e) => handleChange(e, "discount")}
           />
         )}
+
         <button onClick={() => handleToggle("discount")}>
-          {values.discount.isDisplaying ? "Remove discount" : "Add discount"}
+          {values.discount.isDisplaying ? "x" : "+ Discount"}
         </button>
-        <button onClick={() => changeType("discount")}>
-          {values.discount.type === "percentage" ? "Fixed" : "Percentage"}
-        </button>
+        {values.discount.isDisplaying && (
+          <button onClick={() => changeType("discount")}>
+            {values.discount.type === "percentage" ? "Fixed" : "Percentage"}
+          </button>
+        )}
       </div>
-      <div>
+      <div className="flex items-center gap-2">
         {values.tax.isDisplaying && (
           <SharedInput
             labelText="Tax"
@@ -151,23 +163,32 @@ function Total() {
           />
         )}
         <button onClick={() => handleToggle("tax")}>
-          {values.tax.isDisplaying ? "Remove tax" : "Add tax"}
+          {values.tax.isDisplaying ? "x" : "+ Tax"}
         </button>
-        <button onClick={() => changeType("tax")}>
-          {values.tax.type === "percentage" ? "Fixed" : "Percentage"}
+        {values.tax.isDisplaying && (
+          <button onClick={() => changeType("tax")}>
+            {values.tax.type === "percentage" ? "Fixed" : "Percentage"}
+          </button>
+        )}
+      </div>
+      <div className="flex items-center gap-2">
+        {values.shipping.isDisplaying && (
+          <SharedInput
+            labelText="Shipping"
+            type="number"
+            value={shipping}
+            name="shipping"
+          />
+        )}
+        <button onClick={() => handleToggle("shipping")}>
+          {values.shipping.isDisplaying ? "x" : "+ Shipping"}
         </button>
       </div>
-      <div>
-        <SharedInput
-          labelText="Shipping"
-          type="number"
-          value={shipping}
-          name="shipping"
-        />
-      </div>
-      <div>
+
+      <div className="flex gap-2">
         <label>Total</label>
-        {total}
+        {currency}
+        {total.toFixed(2)}
       </div>
       <SharedInput
         labelText="Amount paid"
@@ -175,9 +196,10 @@ function Total() {
         value={amountPaid}
         name="amountPaid"
       />
-      <div>
+      <div className="flex gap-2">
         <label>Balance Due</label>
-        {balanceDue}
+        {currency}
+        {balanceDue.toFixed(2)}
       </div>
     </div>
   );

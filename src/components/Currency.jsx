@@ -24,11 +24,13 @@ function Currency() {
   ];
 
   return (
-    <Select
-      options={options}
-      defaultValue={selectedOption}
-      onChange={setSelectedOption}
-    />
+    <div className="w-32">
+      <Select
+        options={options}
+        defaultValue={selectedOption}
+        onChange={setSelectedOption}
+      />
+    </div>
   );
 }
 

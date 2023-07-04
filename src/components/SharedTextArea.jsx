@@ -9,9 +9,10 @@ function SharedTextArea({ value, name, labelText, placeholderText }) {
   };
 
   return (
-    <div>
-      <label>{labelText}</label>
+    <div className="flex flex-col ">
+      <label className="mb-1">{labelText}</label>
       <TextareaAutosize
+        className="resize-none p-2"
         name={name}
         id={name}
         value={value}

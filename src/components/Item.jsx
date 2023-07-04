@@ -25,37 +25,46 @@ function Item({ item, onDeleteItem, disableDelete }) {
   };
 
   return (
-    <div>
+    <div className="flex flex-col mb-4">
+      <div className="flex justify-between">
+        <p>
+          Amount: {currency}
+          {itemState.amount()}
+        </p>
+        <button
+          className={disableDelete ? "hidden" : ""}
+          onClick={handleDelete}
+          disabled={disableDelete}
+        >
+          x
+        </button>
+      </div>
+
       <SharedInput
         type="text"
         name="description"
-        placeholderText="Description"
+        placeholderText="Description of service or product..."
         value={itemState.description}
         handleChange={handleChange}
       />
-      <SharedInput
-        type="number"
-        name="rate"
-        currency={currency}
-        placeholder="Rate"
-        value={itemState.rate}
-        handleChange={handleChange}
-      />
-      <SharedInput
-        type="number"
-        name="quantity"
-        currency={currency}
-        placeholder="Quantity"
-        value={itemState.quantity}
-        handleChange={handleChange}
-      />
-      <p>
-        Amount: {currency}
-        {itemState.amount()}
-      </p>
-      <button onClick={handleDelete} disabled={disableDelete}>
-        Delete
-      </button>
+      <div className="flex gap-2">
+        <SharedInput
+          type="number"
+          name="rate"
+          currency={currency}
+          placeholder="Rate"
+          value={itemState.rate}
+          handleChange={handleChange}
+        />
+        <p>x</p>
+        <SharedInput
+          type="number"
+          name="quantity"
+          placeholder="Quantity"
+          value={itemState.quantity}
+          handleChange={handleChange}
+        />
+      </div>
     </div>
   );
 }

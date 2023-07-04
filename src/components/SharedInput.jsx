@@ -16,10 +16,11 @@ function SharedInput({
   };
 
   return (
-    <div>
+    <div className="flex items-center mb-4 gap-2">
       <label>{labelText}</label>
       <span>{currency}</span>
       <input
+        className={type === "text" ? "w-full p-2 rounded-sm" : "w-12"}
         type={type}
         placeholder={placeholderText}
         value={value}
