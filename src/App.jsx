@@ -14,8 +14,8 @@ function App() {
     from,
     billTo,
     shipTo,
-    date,
-    dueDate,
+    paymentTerms,
+    poNum,
     notes,
     terms,
     items,
@@ -27,8 +27,8 @@ function App() {
       from: state.from,
       billTo: state.billTo,
       shipTo: state.shipTo,
-      date: state.date,
-      dueDate: state.dueDate,
+      paymentTerms: state.paymentTerms,
+      poNum: state.poNum,
       notes: state.notes,
       terms: state.terms,
       items: state.items,
@@ -50,7 +50,7 @@ function App() {
 
   const store = useStore();
 
-  console.log(store.date, store.dueDate);
+  console.log(store);
 
   const handleDeleteItem = (itemId) => {
     deleteItem(itemId);
@@ -99,7 +99,19 @@ function App() {
       </div>
       <button onClick={handleGenerateItem}>+ Line Item</button>
       <Date labelText="Date" name="date" />
+      <SharedInput
+        labelText={"Payment Terms"}
+        type="text"
+        value={paymentTerms}
+        name={"paymentTerms"}
+      />
       <Date labelText="Due Date" name="dueDate" />
+      <SharedInput
+        labelText={"PO Number"}
+        type="number"
+        value={poNum}
+        name={"poNum"}
+      />
       <SharedTextArea
         value={notes}
         name="notes"
