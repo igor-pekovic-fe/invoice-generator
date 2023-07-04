@@ -18,8 +18,7 @@ export const useStore = create((set, get) => ({
   terms: "",
   currency: "$",
   subTotal: function () {
-    const state = get();
-    return calculateTotal(state);
+    return calculateTotal(get());
   },
   discountType: "percentage",
   discountValue: 0,
@@ -27,6 +26,8 @@ export const useStore = create((set, get) => ({
   taxValue: 0,
   shipping: 0,
   total: 0,
+  amountPaid: 0,
+  balanceDue: 0,
   items: [
     {
       description: "",
@@ -89,6 +90,7 @@ useStore.subscribe(
     adjustedTotal += parseFloat(state.shipping) || 0;
 
     state.total = adjustedTotal;
+    state.balanceDue = adjustedTotal - state.amountPaid;
   },
   (state) => state.items
 );

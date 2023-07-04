@@ -12,6 +12,8 @@ function Total() {
     shipping,
     setValue,
     total,
+    amountPaid,
+    balanceDue,
   } = useStore(
     (state) => ({
       currency: state.currency,
@@ -20,6 +22,8 @@ function Total() {
       taxValue: state.taxValue,
       shipping: state.shipping,
       total: state.total,
+      amountPaid: state.amountPaid,
+      balanceDue: state.balanceDue,
       setValue: state.setValue,
     }),
     shallow
@@ -97,7 +101,7 @@ function Total() {
       ...prevState,
       [stateType]: {
         ...prevState[stateType],
-        value: parseFloat(newValue), // Parse the value to a float
+        value: parseFloat(newValue),
       },
     }));
   };
@@ -164,6 +168,16 @@ function Total() {
       <div>
         <label>Total</label>
         {total}
+      </div>
+      <SharedInput
+        labelText="Amount paid"
+        type="number"
+        value={amountPaid}
+        name="amountPaid"
+      />
+      <div>
+        <label>Balance Due</label>
+        {balanceDue}
       </div>
     </div>
   );
