@@ -7,6 +7,8 @@ import Item from "./components/Item";
 import Currency from "./components/Currency";
 import Total from "./components/Total";
 import Date from "./components/Date";
+import MyDocument from "./components/PDF";
+import { PDFDownloadLink, Document, Page } from "@react-pdf/renderer";
 
 function App() {
   const {
@@ -18,6 +20,9 @@ function App() {
     poNum,
     notes,
     terms,
+    date,
+    dueDate,
+    balanceDue,
     items,
     addItem,
     deleteItem,
@@ -31,6 +36,9 @@ function App() {
       poNum: state.poNum,
       notes: state.notes,
       terms: state.terms,
+      date: state.date,
+      dueDate: state.dueDate,
+      balanceDue: state.balanceDue,
       items: state.items,
       addItem: state.addItem,
       deleteItem: state.deleteItem,
@@ -54,6 +62,17 @@ function App() {
 
   const handleDeleteItem = (itemId) => {
     deleteItem(itemId);
+  };
+
+  const data = {
+    from: from,
+    billTo: billTo,
+    shipTo: shipTo,
+    number: number,
+    date: date,
+    dueDate: dueDate,
+    balanceDue: balanceDue,
+    items: items,
   };
 
   return (
@@ -139,6 +158,14 @@ function App() {
         />
         <Total />
       </div>
+      <PDFDownloadLink
+        document={<MyDocument data={data} />}
+        fileName={`Invoice #${number}`}
+      >
+        {({ blob, url, loading, error }) =>
+          loading ? "Loading document..." : "Download now!"
+        }
+      </PDFDownloadLink>
     </div>
   );
 }

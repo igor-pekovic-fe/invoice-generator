@@ -12,7 +12,9 @@ function Date({ labelText, name }) {
         <label> {labelText}</label>
         <DatePicker
           className="w-44 bg-white rounded-lg p-0"
-          onChange={(newDate) => setValue(newDate.$d, name)}
+          onChange={(newDate) =>
+            setValue(newDate.$d.toLocaleDateString(), name)
+          }
         />
       </LocalizationProvider>
     </div>
