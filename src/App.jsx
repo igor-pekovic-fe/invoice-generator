@@ -7,8 +7,8 @@ import Item from "./components/Item";
 import Currency from "./components/Currency";
 import Total from "./components/Total";
 import Date from "./components/Date";
-import MyDocument from "./components/PDF";
-import { PDFDownloadLink, Document, Page } from "@react-pdf/renderer";
+import PDFDocument from "./components/PDF/PDF";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 function App() {
   const {
@@ -56,9 +56,7 @@ function App() {
     addItem(newItem);
   };
 
-  const store = useStore();
-
-  console.log(store);
+  console.log(items);
 
   const handleDeleteItem = (itemId) => {
     deleteItem(itemId);
@@ -159,7 +157,7 @@ function App() {
         <Total />
       </div>
       <PDFDownloadLink
-        document={<MyDocument data={data} />}
+        document={<PDFDocument data={data} />}
         fileName={`Invoice #${number}`}
       >
         {({ blob, url, loading, error }) =>
