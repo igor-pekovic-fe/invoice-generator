@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
   },
 });
 
-function PDFItems({ items }) {
-  const itemsArr = items.map((item) => (
+function PDFItems({ data }) {
+  const itemsArr = data.items.map((item) => (
     <View style={styles.row} key={item.id}>
       <Text style={styles.description}>{item.description}</Text>
       <Text style={styles.qty}>{item.quantity}</Text>

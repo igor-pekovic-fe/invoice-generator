@@ -7,7 +7,7 @@ function PDFItemsTable({ data }) {
   return (
     <View>
       <PDFItemsHeader />
-      <PDFItems items={data.items} />
+      <PDFItems data={data} />
     </View>
   );
 }

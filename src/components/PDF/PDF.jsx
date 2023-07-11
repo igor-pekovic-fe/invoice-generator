@@ -12,6 +12,8 @@ import {
 import PDFHeader from "./PDFHeader";
 import PDFInfo from "./PDFInfo";
 import PDFItemsTable from "./PDFItemsTable";
+import PDFTotals from "./PDFTotals";
+import PDFFooter from "./PDFFooter";
 
 Font.register({
   family: "Inter",
@@ -72,6 +74,8 @@ const PDFDocument = (
       <PDFHeader data={data} />
       <PDFInfo data={data} />
       <PDFItemsTable data={data} />
+      <PDFTotals data={data} />
+      <PDFFooter data={data} />
     </Page>
   </Document>
 );

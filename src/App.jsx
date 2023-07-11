@@ -26,6 +26,7 @@ function App() {
     items,
     addItem,
     deleteItem,
+    subTotal,
   } = useStore(
     (state) => ({
       number: state.number,
@@ -42,6 +43,7 @@ function App() {
       items: state.items,
       addItem: state.addItem,
       deleteItem: state.deleteItem,
+      subTotal: state.subTotal,
     }),
     shallow
   );
@@ -62,7 +64,7 @@ function App() {
     deleteItem(itemId);
   };
 
-  const data = {
+  const pdfData = {
     from: from,
     billTo: billTo,
     shipTo: shipTo,
@@ -70,6 +72,9 @@ function App() {
     date: date,
     dueDate: dueDate,
     balanceDue: balanceDue,
+    subTotal: subTotal,
+    notes: notes,
+    terms: terms,
     items: items,
   };
 
@@ -157,7 +162,7 @@ function App() {
         <Total />
       </div>
       <PDFDownloadLink
-        document={<PDFDocument data={data} />}
+        document={<PDFDocument data={pdfData} />}
         fileName={`Invoice #${number}`}
       >
         {({ blob, url, loading, error }) =>
