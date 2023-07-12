@@ -120,12 +120,20 @@ function App() {
         <Total />
       </div>
       <Currency />
+      <a
+        href={`data:text/json;charset=utf-8,${encodeURIComponent(
+          JSON.stringify(invoiceData, null, "\t")
+        )}`}
+        download={`Invoice #${invoiceData.number}.json`}
+      >
+        {`Download JSON`}
+      </a>
       <PDFDownloadLink
         document={<PDFDocument data={invoiceData} />}
         fileName={`Invoice #${invoiceData.number}`}
       >
         {({ blob, url, loading, error }) =>
-          loading ? "Loading document..." : "Download now!"
+          loading ? "Loading document..." : "Download PDF"
         }
       </PDFDownloadLink>
     </div>
