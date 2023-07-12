@@ -5,8 +5,7 @@ import SharedTextArea from "./components/SharedTextArea";
 import Item from "./components/Item";
 import Currency from "./components/Currency";
 import Total from "./components/Total";
-import PDFDocument from "./components/PDF/PDF";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import DownloadLinks from "./components/DownloadLinks";
 
 function App() {
   const invoiceData = useStore();
@@ -120,22 +119,7 @@ function App() {
         <Total />
       </div>
       <Currency />
-      <a
-        href={`data:text/json;charset=utf-8,${encodeURIComponent(
-          JSON.stringify(invoiceData, null, "\t")
-        )}`}
-        download={`Invoice #${invoiceData.number}.json`}
-      >
-        {`Download JSON`}
-      </a>
-      <PDFDownloadLink
-        document={<PDFDocument data={invoiceData} />}
-        fileName={`Invoice #${invoiceData.number}`}
-      >
-        {({ blob, url, loading, error }) =>
-          loading ? "Loading document..." : "Download PDF"
-        }
-      </PDFDownloadLink>
+      <DownloadLinks invoiceData={invoiceData} />
     </div>
   );
 }
