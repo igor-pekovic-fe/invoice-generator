@@ -6,7 +6,6 @@ import SharedTextArea from "./components/SharedTextArea";
 import Item from "./components/Item";
 import Currency from "./components/Currency";
 import Total from "./components/Total";
-import Date from "./components/Date";
 import PDFDocument from "./components/PDF/PDF";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
@@ -27,6 +26,7 @@ function App() {
     addItem,
     deleteItem,
     subTotal,
+    setValue,
   } = useStore(
     (state) => ({
       number: state.number,
@@ -44,9 +44,12 @@ function App() {
       addItem: state.addItem,
       deleteItem: state.deleteItem,
       subTotal: state.subTotal,
+      setValue: state.setValue,
     }),
     shallow
   );
+
+  console.log(date, dueDate);
 
   const handleGenerateItem = () => {
     const newItem = {
@@ -115,14 +118,24 @@ function App() {
           />
         </div>
         <div className="flex flex-col gap-2 mb-8">
-          <Date labelText="Date" name="date" />
+          <input
+            className="w-44"
+            value={date}
+            type="date"
+            onChange={(e) => setValue(e.target.value, "date")}
+          />
           <SharedInput
             labelText={"Payment Terms"}
             type="text"
             value={paymentTerms}
             name={"paymentTerms"}
           />
-          <Date labelText="Due Date" name="dueDate" />
+          <input
+            className="w-44"
+            value={dueDate}
+            type="date"
+            onChange={(e) => setValue(e.target.value, "dueDate")}
+          />
           <SharedInput
             labelText={"PO Number"}
             type="number"
