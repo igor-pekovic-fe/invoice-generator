@@ -63,11 +63,11 @@ function App() {
           />
         </div>
         <div className="flex flex-col gap-2 mb-8">
-          <input
-            className="w-44"
+          <SharedInput
+            labelText="Date:"
             value={invoiceData.date}
             type="date"
-            onChange={(e) => invoiceData.setValue(e.target.value, "date")}
+            name="date"
           />
           <SharedInput
             labelText={"Payment Terms"}
@@ -75,11 +75,11 @@ function App() {
             value={invoiceData.paymentTerms}
             name={"paymentTerms"}
           />
-          <input
-            className="w-44"
+          <SharedInput
+            labelText="Due Date:"
             value={invoiceData.dueDate}
             type="date"
-            onChange={(e) => invoiceData.setValue(e.target.value, "dueDate")}
+            name="dueDate"
           />
           <SharedInput
             labelText={"PO Number"}

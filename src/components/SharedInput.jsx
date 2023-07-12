@@ -20,7 +20,7 @@ function SharedInput({
       <label>{labelText}</label>
       <span>{currency}</span>
       <input
-        className={type === "text" ? "w-full p-2 rounded-sm" : "w-12"}
+        className={type === "number" ? "w-12" : "w-full p-2 rounded-sm"}
         type={type}
         placeholder={placeholderText}
         value={value}
