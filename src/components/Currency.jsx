@@ -24,7 +24,7 @@ function Currency() {
   ];
 
   return (
-    <div className="w-32">
+    <div className="w-fit rounded-md focus:outline-none focus:ring focus:ring-gray-400 hover:ring hover:ring-gray-400 transition-all">
       <Select
         options={options}
         defaultValue={selectedOption}

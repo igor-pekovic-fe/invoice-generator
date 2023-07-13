@@ -5,14 +5,16 @@ const calculateAmount = (rate, quantity) => rate * quantity;
 const calculateTotal = (arr) =>
   arr.items.reduce((acc, item) => acc + item.rate * item.quantity, 0);
 
+const date = new Date().toISOString().split("T")[0];
+
 export const useStore = create((set, get) => ({
   number: 1,
   from: "",
   billTo: "",
   shipTo: "",
-  date: "",
+  date: date,
   paymentTerms: "",
-  dueDate: "",
+  dueDate: date,
   poNum: "",
   notes: "",
   terms: "",

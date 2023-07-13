@@ -15,19 +15,37 @@ function SharedInput({
     setValue(e.target.value, name);
   };
 
+  const getInputClassName = () => {
+    let baseClass =
+      "h-8 p-1 rounded-md focus:outline-none focus:ring focus:ring-gray-400 hover:ring hover:ring-gray-400 transition-all";
+    switch (type) {
+      case "number":
+        return `${baseClass} w-10 p-1`;
+      case "text":
+        return `${baseClass} w-full`;
+      case "date":
+        return `${baseClass} w-fit`;
+      default:
+        return baseClass;
+    }
+  };
+
   return (
-    <div className="flex items-center mb-4 gap-2">
-      <label>{labelText}</label>
-      <span>{currency}</span>
-      <input
-        className={type === "number" ? "w-12" : "w-full p-2 rounded-sm"}
-        type={type}
-        placeholder={placeholderText}
-        value={value}
-        id={name}
-        onChange={handleChange || handleChangeDefault}
-        name={name}
-      />
+    <div className="flex items-center">
+      <label className="mr-1">{labelText}</label>
+      <div>
+        <span className={currency && "mr-1 font-bold"}>{currency}</span>
+        <input
+          className={getInputClassName()}
+          type={type}
+          placeholder={placeholderText}
+          value={value}
+          id={name}
+          onChange={handleChange || handleChangeDefault}
+          name={name}
+          min={value}
+        />
+      </div>
     </div>
   );
 }

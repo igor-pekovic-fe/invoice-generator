@@ -6,6 +6,7 @@ import Item from "./components/Item";
 import Currency from "./components/Currency";
 import Total from "./components/Total";
 import DownloadLinks from "./components/DownloadLinks";
+import Divider from "./components/Divider";
 
 function App() {
   const invoiceData = useStore();
@@ -27,26 +28,26 @@ function App() {
   };
 
   return (
-    <div className="grid h-screen place-items-center">
-      <div className="px-6 py-8 bg-slate-200 rounded-lg">
-        <h1 className="text-3xl mb-2">INVOICE</h1>
-        <div className="flex flex-col gap-2 mb-8">
-          <div className="flex">
-            <span className="p-2 flex place-items-center bg-gray-300 w-6 h-6">
-              #
-            </span>
+    <div className="grid h-screen place-items-center bg-gray-100 p-4">
+      <div className="px-6 py-8 bg-gray-200 shadow-md rounded-lg min-w-fit">
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-3xl uppercase">Invoice</h1>
+          <div className="flex items-center">
+            <span className="flex items-center h-8 mr-1">#</span>
             <SharedInput
               type="number"
-              placeholderText={"Number of invoice"}
               value={invoiceData.number}
               name={"number"}
             />
           </div>
+        </div>
+        <div className="flex flex-col gap-2 mb-4">
           <SharedTextArea
             value={invoiceData.from}
             name="from"
-            labelText="Invoice from:"
+            labelText="From:"
             placeholderText="Who is this invoice from?"
+            required={true}
           />
           <SharedTextArea
             value={invoiceData.billTo}
@@ -61,7 +62,8 @@ function App() {
             placeholderText="Who is this invoice shipped to?"
           />
         </div>
-        <div className="flex flex-col gap-2 mb-8">
+        <Divider mb="6" />
+        <div className="flex flex-col gap-2 mb-6">
           <SharedInput
             labelText="Date:"
             value={invoiceData.date}
@@ -69,7 +71,7 @@ function App() {
             name="date"
           />
           <SharedInput
-            labelText={"Payment Terms"}
+            labelText="Terms:"
             type="text"
             value={invoiceData.paymentTerms}
             name={"paymentTerms"}
@@ -81,14 +83,14 @@ function App() {
             name="dueDate"
           />
           <SharedInput
-            labelText={"PO Number"}
+            labelText="PO Number:"
             type="number"
             value={invoiceData.poNum}
             name={"poNum"}
           />
         </div>
-
-        <div>
+        <Divider />
+        <div className="mb-6">
           {invoiceData.items.map((item) => (
             <Item
               key={item.id}
@@ -98,24 +100,28 @@ function App() {
             />
           ))}
           <button
-            className="bg-green-600 text-white p-2 rounded-md mt-2"
+            className="bg-green-600 text-white font-bold p-2 rounded-md mt-2 hover:ring hover:ring-green-800 transition-all"
             onClick={handleGenerateItem}
           >
             + Line Item
           </button>
         </div>
-        <SharedTextArea
-          value={invoiceData.notes}
-          name="notes"
-          labelText="Notes"
-          placeholderText="Notes - any releveant information not already covered"
-        />
-        <SharedTextArea
-          value={invoiceData.terms}
-          name="terms"
-          labelText="Invoice from:"
-          placeholderText="Terms and conditions - late fees, payment methods, delivery schedule"
-        />
+        <Divider mb="4" />
+        <div className="mb-6">
+          <SharedTextArea
+            value={invoiceData.notes}
+            name="notes"
+            labelText="Notes:"
+            placeholderText="Notes - any releveant information not already covered"
+          />
+          <SharedTextArea
+            value={invoiceData.terms}
+            name="terms"
+            labelText="Terms:"
+            placeholderText="Terms and conditions - late fees, payment methods, delivery schedule"
+          />
+        </div>
+        <Divider />
         <Total />
       </div>
       <Currency />
