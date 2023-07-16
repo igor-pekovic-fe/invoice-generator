@@ -9,7 +9,7 @@ const date = new Date().toISOString().split("T")[0];
 
 export const useStore = create((set, get) => ({
   number: 1,
-  from: "",
+  from: "Test",
   billTo: "",
   shipTo: "",
   date: date,

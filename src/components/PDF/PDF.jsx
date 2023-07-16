@@ -1,13 +1,4 @@
-import { useStore } from "../../store";
-
-import {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-  Font,
-} from "@react-pdf/renderer";
+import { Document, Page, StyleSheet, Font } from "@react-pdf/renderer";
 
 import PDFHeader from "./PDFHeader";
 import PDFInfo from "./PDFInfo";
@@ -49,20 +40,6 @@ const styles = StyleSheet.create({
   page: {
     padding: "48px",
     backgroundColor: "#fff",
-  },
-  text: {
-    color: "#000",
-    fontSize: "12px",
-    fontWeight: "bold",
-  },
-  row2: {
-    flexDirection: "row",
-    color: "#000",
-    backgroundColor: "#fff",
-    alignItems: "center",
-    height: 24,
-    fontStyle: "bold",
-    fontSize: "12px",
   },
 });
 
