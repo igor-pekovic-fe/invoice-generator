@@ -65,6 +65,12 @@ export const useStore = create((set, get) => ({
         return item;
       }),
     })),
+  isInvoiceValid: () => {
+    const { from } = get();
+
+    if (!from) return false;
+    return true;
+  },
 }));
 
 useStore.subscribe(

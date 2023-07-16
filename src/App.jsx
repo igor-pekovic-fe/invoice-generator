@@ -125,7 +125,7 @@ function App() {
         <Total />
       </div>
       <Currency />
-      <DownloadLinks invoiceData={invoiceData} />
+      <DownloadLinks />
     </div>
   );
 }
