@@ -31,8 +31,12 @@ function Currency() {
   };
 
   return (
-    <div className="p-0 w-fit rounded-md">
-      <select value={selectedOption.value} onChange={handleSelectChange}>
+    <div className="bg-white h-8 p-0 rounded-md focus:outline-none focus:ring focus:ring-gray-400 hover:ring hover:ring-gray-400 transition-all">
+      <select
+        className="bg-white rounded-md p-1 mt-1"
+        value={selectedOption.value}
+        onChange={handleSelectChange}
+      >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
