@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useStore } from "../store";
-import SharedInput from "./SharedInput";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 function Item({ item, onDeleteItem, disableDelete }) {
@@ -40,30 +39,35 @@ function Item({ item, onDeleteItem, disableDelete }) {
           <AiOutlineCloseCircle className="hover:scale-110 transition-all" />
         </button>
       </div>
-
-      <SharedInput
+      <input
+        className="h-8 p-1 rounded-md focus:outline-none focus:ring focus:ring-gray-400 hover:ring hover:ring-gray-400 transition-all"
         type="text"
         name="description"
-        placeholderText="Description of service or product..."
+        placeholder="Description of service or product..."
         value={itemState.description}
-        handleChange={handleChange}
+        onChange={handleChange}
       />
-      <div className="flex items-center gap-1">
-        <SharedInput
-          type="number"
-          name="rate"
-          currency={currency}
-          placeholder="Rate"
-          value={itemState.rate}
-          handleChange={handleChange}
-        />
-        <p>x</p>
-        <SharedInput
+      <div className="flex items-center">
+        <div>
+          {currency}
+          <input
+            className="w-10 h-8 p-1 rounded-md ml-1 focus:outline-none focus:ring focus:ring-gray-400 hover:ring hover:ring-gray-400 transition-all"
+            type="number"
+            name="rate"
+            placeholder="Rate"
+            value={itemState.rate}
+            onChange={handleChange}
+          />
+        </div>
+
+        <span className="px-2">x</span>
+        <input
+          className="w-10 h-8 p-1 rounded-md focus:outline-none focus:ring focus:ring-gray-400 hover:ring hover:ring-gray-400 transition-all"
           type="number"
           name="quantity"
           placeholder="Quantity"
           value={itemState.quantity}
-          handleChange={handleChange}
+          onChange={handleChange}
         />
       </div>
     </div>

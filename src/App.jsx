@@ -1,6 +1,5 @@
 import { useStore } from "./store";
 import { nanoid } from "nanoid";
-import SharedInput from "./components/SharedInput";
 import SharedTextArea from "./components/SharedTextArea";
 import Item from "./components/Item";
 import Currency from "./components/Currency";
@@ -27,18 +26,26 @@ function App() {
     invoiceData.deleteItem(itemId);
   };
 
+  const handleChange = (e) => {
+    invoiceData.setValue(e.target.value, e.target.name);
+  };
+
   return (
     <div className="grid place-items-center bg-gray-100 p-4">
       <div className="px-6 py-8 bg-gray-200 shadow-md rounded-lg w-11/12 md:w-4/6 lg:w-5/6">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl uppercase">Invoice</h1>
-
           <div className="flex items-center">
-            <span className="flex items-center h-8 mr-1">#</span>
-            <SharedInput
+            <label htmlFor="number" className="flex items-center h-8 mr-1">
+              #
+            </label>
+            <input
+              className="w-10 h-8 p-1 rounded-md focus:outline-none focus:ring focus:ring-gray-400 hover:ring hover:ring-gray-400 transition-all"
               type="number"
               value={invoiceData.number}
-              name={"number"}
+              id="number"
+              name="number"
+              onChange={handleChange}
             />
           </div>
         </div>
@@ -65,30 +72,52 @@ function App() {
         </div>
         <Divider mb="6" />
         <div className="flex flex-col gap-2 mb-6">
-          <SharedInput
-            labelText="Date:"
-            value={invoiceData.date}
-            type="date"
-            name="date"
-          />
-          <SharedInput
-            labelText="Terms:"
-            type="text"
-            value={invoiceData.paymentTerms}
-            name={"paymentTerms"}
-          />
-          <SharedInput
-            labelText="Due Date:"
-            value={invoiceData.dueDate}
-            type="date"
-            name="dueDate"
-          />
-          <SharedInput
-            labelText="PO Number:"
-            type="number"
-            value={invoiceData.poNum}
-            name={"poNum"}
-          />
+          <div className="flex items-center self-end gap-2">
+            <label htmlFor="date">Date: </label>
+            <input
+              className="w-48 h-8 p-1 rounded-md focus:outline-none focus:ring focus:ring-gray-400 hover:ring hover:ring-gray-400 transition-all"
+              type="date"
+              value={invoiceData.date}
+              min={invoiceData.date}
+              id="date"
+              name="date"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="flex items-center self-end gap-2">
+            <label htmlFor="terms">Terms: </label>
+            <input
+              className="w-48 h-8 p-1 rounded-md focus:outline-none focus:ring focus:ring-gray-400 hover:ring hover:ring-gray-400 transition-all"
+              type="text"
+              value={invoiceData.terms}
+              id="terms"
+              name="terms"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="flex items-center self-end gap-2">
+            <label htmlFor="dueDate">Due Date: </label>
+            <input
+              className="w-48 h-8 p-1 rounded-md focus:outline-none focus:ring focus:ring-gray-400 hover:ring hover:ring-gray-400 transition-all"
+              type="date"
+              value={invoiceData.dueDate}
+              min={invoiceData.dueDate}
+              id="dueDate"
+              name="dueDate"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="flex items-center self-end gap-2">
+            <label htmlFor="poNum">PO Number: </label>
+            <input
+              className="w-48 h-8 p-1 rounded-md focus:outline-none focus:ring focus:ring-gray-400 hover:ring hover:ring-gray-400 transition-all"
+              type="text"
+              value={invoiceData.poNum}
+              id="poNum"
+              name="poNum"
+              onChange={handleChange}
+            />
+          </div>
         </div>
 
         <div className="mb-6">

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useStore } from "../store";
 import { shallow } from "zustand/shallow";
-import SharedInput from "./SharedInput";
 import {
   AiOutlineCloseCircle,
   AiOutlinePlus,
@@ -116,6 +115,10 @@ function Total() {
     }));
   };
 
+  const handleChangeDefault = (e) => {
+    setValue(e.target.value, e.target.name);
+  };
+
   const changeType = (stateType) => {
     if (stateType === "shipping") {
       return;
@@ -140,13 +143,18 @@ function Total() {
       <div className="md:flex">
         <div className="flex items-center gap-2 h-8 ">
           {values.discount.isDisplaying && (
-            <SharedInput
-              labelText="Discount"
-              type="number"
-              value={discountValue}
-              name="discount"
-              handleChange={(e) => handleChange(e, "discount")}
-            />
+            <div>
+              <label htmlFor="discountValue">Discount: </label>
+              {values.discount.type === "percentage" ? "%" : currency}
+              <input
+                className="w-10 h-8 p-1 rounded-md focus:outline-none focus:ring focus:ring-gray-400 hover:ring hover:ring-gray-400 transition-all"
+                type="number"
+                value={discountValue}
+                name="discount"
+                id="discountValue"
+                onChange={(e) => handleChange(e, "discount")}
+              />
+            </div>
           )}
           <button
             className="text-green-600"
@@ -172,13 +180,18 @@ function Total() {
         </div>
         <div className="flex items-center gap-2">
           {values.tax.isDisplaying && (
-            <SharedInput
-              labelText="Tax"
-              type="number"
-              value={taxValue}
-              name="tax"
-              handleChange={(e) => handleChange(e, "tax")}
-            />
+            <div>
+              <label htmlFor="taxValue">Tax: </label>
+              {values.tax.type === "percentage" ? "%" : currency}
+              <input
+                className="w-10 h-8 p-1 rounded-md focus:outline-none focus:ring focus:ring-gray-400 hover:ring hover:ring-gray-400 transition-all"
+                type="number"
+                value={taxValue}
+                name="discount"
+                id="taxValue"
+                onChange={(e) => handleChange(e, "tax")}
+              />
+            </div>
           )}
           <button onClick={() => handleToggle("tax")}>
             {values.tax.isDisplaying ? (
@@ -195,12 +208,17 @@ function Total() {
         </div>
         <div className="flex items-center gap-2">
           {values.shipping.isDisplaying && (
-            <SharedInput
-              labelText="Shipping"
-              type="number"
-              value={shipping}
-              name="shipping"
-            />
+            <div>
+              <label htmlFor="shipping">Shipping: </label>
+              <input
+                className="w-10 h-8 p-1 rounded-md focus:outline-none focus:ring focus:ring-gray-400 hover:ring hover:ring-gray-400 transition-all"
+                type="number"
+                value={shipping}
+                name="shipping"
+                id="shipping"
+                onChange={(e) => handleChangeDefault(e, "shipping")}
+              />
+            </div>
           )}
           <button onClick={() => handleToggle("shipping")}>
             {values.shipping.isDisplaying ? "x" : "+ Shipping"}
@@ -209,20 +227,29 @@ function Total() {
       </div>
 
       <div className="flex gap-2">
-        <label>Total</label>
-        {currency}
-        {total.toFixed(2)}
+        <label>Total: </label>
+        <span className="flex gap-4">
+          {currency}
+          {total.toFixed(2)}
+        </span>
       </div>
-      <SharedInput
-        labelText="Amount paid"
-        type="number"
-        value={amountPaid}
-        name="amountPaid"
-      />
-      <div className="flex gap-2">
-        <label>Balance Due</label>
-        {currency}
-        {balanceDue.toFixed(2)}
+      <div>
+        <label htmlFor="amountPaid">Amount Paid: </label>
+        <input
+          className="w-10 h-8 p-1 rounded-md focus:outline-none focus:ring focus:ring-gray-400 hover:ring hover:ring-gray-400 transition-all"
+          type="number"
+          value={amountPaid}
+          name="amountPaid"
+          id="amountPaid"
+          onChange={handleChangeDefault}
+        />
+      </div>
+      <div className="flex gap-1">
+        <label>Balance Due: </label>
+        <span className="flex gap-4">
+          {currency}
+          {balanceDue.toFixed(2)}
+        </span>
       </div>
     </div>
   );
