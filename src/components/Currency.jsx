@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useStore } from "../store";
-import Select from "react-select";
 
 function Currency() {
   const [selectedOption, setSelectedOption] = useState({
-    value: "dollar",
-    label: "USD ($)",
-    symbol: "$",
+    value: "euro",
+    label: "EUR (€)",
+    symbol: "€",
   });
 
   const setValue = useStore((state) => state.setValue);
@@ -23,13 +22,23 @@ function Currency() {
     { value: "serbian-dinar", label: "RSD (Дин.)", symbol: "Дин." },
   ];
 
+  const handleSelectChange = (event) => {
+    const selectedValue = event.target.value;
+    const selectedOption = options.find(
+      (option) => option.value === selectedValue
+    );
+    setSelectedOption(selectedOption);
+  };
+
   return (
-    <div className="w-fit rounded-md focus:outline-none focus:ring focus:ring-gray-400 hover:ring hover:ring-gray-400 transition-all">
-      <Select
-        options={options}
-        defaultValue={selectedOption}
-        onChange={setSelectedOption}
-      />
+    <div className="p-0 w-fit rounded-md">
+      <select value={selectedOption.value} onChange={handleSelectChange}>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }

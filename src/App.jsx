@@ -35,7 +35,7 @@ function App() {
       <div className="px-6 py-8 bg-gray-200 shadow-md rounded-lg w-11/12 md:w-4/6 lg:w-5/6">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl uppercase">Invoice</h1>
-          <div className="flex items-center">
+          <div className="flex items-center gap-2">
             <label htmlFor="number" className="flex items-center h-8 mr-1">
               #
             </label>
@@ -47,6 +47,7 @@ function App() {
               name="number"
               onChange={handleChange}
             />
+            <Currency />
           </div>
         </div>
         <div className="flex flex-col gap-2 mb-4">
@@ -154,7 +155,6 @@ function App() {
         <Divider />
         <Total />
       </div>
-      <Currency />
       <DownloadLinks />
     </div>
   );
