@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useStore } from "../store";
 import SharedInput from "./SharedInput";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 function Item({ item, onDeleteItem, disableDelete }) {
   const { currency, updateItem } = useStore((state) => ({
@@ -25,7 +26,7 @@ function Item({ item, onDeleteItem, disableDelete }) {
   };
 
   return (
-    <div className="flex flex-col gap-2 mb-4 bg-gray-300 p-4 rounded-md hover:ring hover:ring-gray-400 transition-all">
+    <div className="flex flex-col gap-2 mb-4 bg-gray-300 p-4 rounded-md ">
       <div className="flex justify-between">
         <p>
           Amount: {currency}
@@ -36,7 +37,7 @@ function Item({ item, onDeleteItem, disableDelete }) {
           onClick={handleDelete}
           disabled={disableDelete}
         >
-          x
+          <AiOutlineCloseCircle className="hover:scale-110 transition-all" />
         </button>
       </div>
 

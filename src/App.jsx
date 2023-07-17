@@ -28,10 +28,11 @@ function App() {
   };
 
   return (
-    <div className="grid h-screen place-items-center bg-gray-100 p-4">
-      <div className="px-6 py-8 bg-gray-200 shadow-md rounded-lg min-w-fit">
+    <div className="grid place-items-center bg-gray-100 p-4">
+      <div className="px-6 py-8 bg-gray-200 shadow-md rounded-lg w-11/12 md:w-4/6 lg:w-5/6">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl uppercase">Invoice</h1>
+
           <div className="flex items-center">
             <span className="flex items-center h-8 mr-1">#</span>
             <SharedInput
@@ -89,7 +90,7 @@ function App() {
             name={"poNum"}
           />
         </div>
-        <Divider />
+
         <div className="mb-6">
           {invoiceData.items.map((item) => (
             <Item

@@ -2,6 +2,11 @@ import { useState, useEffect } from "react";
 import { useStore } from "../store";
 import { shallow } from "zustand/shallow";
 import SharedInput from "./SharedInput";
+import {
+  AiOutlineCloseCircle,
+  AiOutlinePlus,
+  AiOutlinePercentage,
+} from "react-icons/ai";
 
 function Total() {
   const {
@@ -42,7 +47,7 @@ function Total() {
     },
     shipping: {
       isDisplaying: false,
-      type: "fixed", // Set the type to "fixed" for shipping
+      type: "fixed",
       value: 0,
     },
   });
@@ -132,57 +137,75 @@ function Total() {
         {currency}
         {subTotal.toFixed(2)}
       </div>
-      <div className="flex items-center gap-2">
-        {values.discount.isDisplaying && (
-          <SharedInput
-            labelText="Discount"
-            type="number"
-            value={discountValue}
-            name="discount"
-            handleChange={(e) => handleChange(e, "discount")}
-          />
-        )}
-
-        <button onClick={() => handleToggle("discount")}>
-          {values.discount.isDisplaying ? "x" : "+ Discount"}
-        </button>
-        {values.discount.isDisplaying && (
-          <button onClick={() => changeType("discount")}>
-            {values.discount.type === "percentage" ? "Fixed" : "Percentage"}
+      <div className="md:flex">
+        <div className="flex items-center gap-2 h-8 ">
+          {values.discount.isDisplaying && (
+            <SharedInput
+              labelText="Discount"
+              type="number"
+              value={discountValue}
+              name="discount"
+              handleChange={(e) => handleChange(e, "discount")}
+            />
+          )}
+          <button
+            className="text-green-600"
+            onClick={() => handleToggle("discount")}
+          >
+            {values.discount.isDisplaying ? (
+              <AiOutlineCloseCircle className="hover:scale-110 transition-all" />
+            ) : (
+              "+ Discount"
+            )}
           </button>
-        )}
-      </div>
-      <div className="flex items-center gap-2">
-        {values.tax.isDisplaying && (
-          <SharedInput
-            labelText="Tax"
-            type="number"
-            value={taxValue}
-            name="tax"
-            handleChange={(e) => handleChange(e, "tax")}
-          />
-        )}
-        <button onClick={() => handleToggle("tax")}>
-          {values.tax.isDisplaying ? "x" : "+ Tax"}
-        </button>
-        {values.tax.isDisplaying && (
-          <button onClick={() => changeType("tax")}>
-            {values.tax.type === "percentage" ? "Fixed" : "Percentage"}
+          {values.discount.isDisplaying && (
+            <button onClick={() => changeType("discount")}>
+              {values.discount.type === "percentage" ? (
+                "..."
+              ) : (
+                <div>
+                  <AiOutlinePercentage></AiOutlinePercentage>
+                </div>
+              )}
+            </button>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          {values.tax.isDisplaying && (
+            <SharedInput
+              labelText="Tax"
+              type="number"
+              value={taxValue}
+              name="tax"
+              handleChange={(e) => handleChange(e, "tax")}
+            />
+          )}
+          <button onClick={() => handleToggle("tax")}>
+            {values.tax.isDisplaying ? (
+              <AiOutlineCloseCircle className="hover:scale-110 transition-all" />
+            ) : (
+              "+ Tax"
+            )}
           </button>
-        )}
-      </div>
-      <div className="flex items-center gap-2">
-        {values.shipping.isDisplaying && (
-          <SharedInput
-            labelText="Shipping"
-            type="number"
-            value={shipping}
-            name="shipping"
-          />
-        )}
-        <button onClick={() => handleToggle("shipping")}>
-          {values.shipping.isDisplaying ? "x" : "+ Shipping"}
-        </button>
+          {values.tax.isDisplaying && (
+            <button onClick={() => changeType("tax")}>
+              {values.tax.type === "percentage" ? "Fixed" : "Percentage"}
+            </button>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          {values.shipping.isDisplaying && (
+            <SharedInput
+              labelText="Shipping"
+              type="number"
+              value={shipping}
+              name="shipping"
+            />
+          )}
+          <button onClick={() => handleToggle("shipping")}>
+            {values.shipping.isDisplaying ? "x" : "+ Shipping"}
+          </button>
+        </div>
       </div>
 
       <div className="flex gap-2">
